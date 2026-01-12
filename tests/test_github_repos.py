@@ -27,14 +27,20 @@ def test_get_repo_by_owner_and_name(api_client):
 
 
 @pytest.mark.negative
-def test_get_repo_returns_404_for_non_existing_repo(api_client):
+@pytest.mark.parametrize(
+    "owner, repo",
+    [
+        ("octocat", "this-repo-should-not-exist-123456789"),
+        ("octocat", "definitely-not-a-repo-000000000"),
+        ("this-owner-should-not-exist-123456789", "some-repo"),
+    ],
+)
+def test_get_repo_returns_404_for_non_existing_repo(api_client, owner, repo):
     """
     Negative test:
     Verify GitHub returns 404 for a repository that does not exist.
     """
-    owner = "octocat"
-    repo = "this-repo-should-not-exist-123456789"
-
     response = api_client.get(f"/repos/{owner}/{repo}")
 
     assert response.status_code == 404
+
