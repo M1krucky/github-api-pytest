@@ -5,7 +5,7 @@ import pytest
 
 @pytest.mark.smoke
 @pytest.mark.positive
-@pytest.mark.parametrize("username", ["octocat"])
+@pytest.mark.parametrize("username", ["octocat", "defunkt", "mojombo"])
 def test_get_user_by_username(api_client, username):
     """
     Smoke test:
