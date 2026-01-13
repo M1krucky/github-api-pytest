@@ -33,3 +33,6 @@
 - Add parametrization for scalable endpoint coverage
 - Add reporting (HTML/JUnit) and CI workflow (GitHub Actions)
 - Improve assertions around response schema and business rules
+
+  <!-- CI registration -->
+
