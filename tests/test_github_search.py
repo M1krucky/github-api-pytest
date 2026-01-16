@@ -25,3 +25,16 @@ def test_search_repositories_by_keyword(api_client, keyword):
     names = [repo["name"].lower() for repo in data["items"]]
     assert any(keyword.lower() in name for name in names)
 
+
+@pytest.mark.negative
+def test_search_repositories_with_empty_query_returns_422(api_client):
+    """
+    Verify GitHub search API returns 422 when query parameter is missing or empty.
+    """
+    response = api_client.get("/search/repositories", params={"q": ""})
+
+    assert response.status_code == 422
+
+    data = response.json()
+    assert "message" in data
+
